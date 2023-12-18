@@ -17,12 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
-
-def redirect_to_home(request):
-    return redirect("list_projects")
+from projects.views import redirect_to_home
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", redirect_to_home),
-    path("projects/", include("projects.urls"))
+    path("", redirect_to_home, name ="home"),
+    path("projects/", include("projects.urls")),
 ]
