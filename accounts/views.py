@@ -6,26 +6,18 @@ from django.contrib.auth.decorators import login_required
 
 
 def signup(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
-            password_confirmation = form.cleaned_data["password_confirmation"]
-            first_name = form.cleaned_data["first_name"]
-            last_name = form.cleaned_data["last_name"]
-
-            if password_confirmation == password:
-                user = User.objects.create_user(
-                    username,
-                    password=password,
-                    first_name=first_name,
-                    last_name=last_name,
-                )
+            confirm = form.cleaned_data["password_confirmation"]
+            if password == confirm:
+                user = User.objects.create_user(username, password=password)
                 login(request, user)
                 return redirect("list_projects")
             else:
-                form.add_error("password", "Passwords do not match")
+                form.add_error("password", "the passwords do not match")
     else:
         form = SignUpForm()
     context = {
