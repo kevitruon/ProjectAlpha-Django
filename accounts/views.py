@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from accounts.forms import SignUpForm, LoginForm
+from django.contrib.auth.decorators import login_required
 
 
 def signup(request):
@@ -53,6 +54,7 @@ def user_login(request):
     }
     return render(request, "accounts/login.html", context)
 
+@login_required
 def user_logout(request):
     logout(request)
-    return redirect("list_projects")
+    return redirect("login")
