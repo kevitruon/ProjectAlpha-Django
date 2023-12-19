@@ -10,7 +10,7 @@
       <div>
         <h1>My Projects</h1>
         {% if not projects %}
-        <p>You are not assigned any projects</p>
+        <p>You are not assigned to any projects</p>
         {% else %}
         <table>
           <thead>
@@ -20,11 +20,12 @@
             </tr>
           </thead>
           <tbody>
-            {% for project in projects %}{% endfor %}
+            {% for project in projects %}
             <tr>
-              <td>project</td>
+              <td>{{project}}</td>
               <td></td>
             </tr>
+            {% endfor %}
           </tbody>
         </table>
         {% endif %}
