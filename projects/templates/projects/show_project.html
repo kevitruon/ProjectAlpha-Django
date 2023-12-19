@@ -1,45 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
+{% extends "base.html" %}
+
+{% block content %}
     <main>
-      <div>
-        <h1>{{project_object}}</h1>
-        <p>{{project_object.description}}</p>
-        <h2>
-          {% if project_object.tasks.all %}
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Assignee</th>
-                <th>Start date</th>
-                <th>Due date</th>
-                <th>Is completed</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for task in project_object.tasks.all %}
-              <tr>
-                <td>{{ task.name }}</td>
-                <td>{{ task.assignee.username }}</td>
-                <td>{{ task.start_date }}</td>
-                <td>{{ task.due_date }}</td>
-                <td>{{ task.is_completed|yesno:"yes,no" }}</td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-          {% else %}
-          <p>This project has no tasks</p>
-          {% endif %}
-        </h2>
-        <p><a href="{% url "create_task" %}">Create a new task</a></p>
-      </div>
+        <div>
+            <h1>{{ project_object }}</h1>
+            <p>{{ project_object.description }}</p>
+            <h2>
+                {% if project_object.tasks.all %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Assignee</th>
+                                <th>Start date</th>
+                                <th>Due date</th>
+                                <th>Is completed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for task in project_object.tasks.all %}
+                                <tr>
+                                    <td>{{ task.name }}</td>
+                                    <td>{{ task.assignee.username }}</td>
+                                    <td>{{ task.start_date }}</td>
+                                    <td>{{ task.due_date }}</td>
+                                    <td>{{ task.is_completed|yesno:"yes,no" }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>This project has no tasks</p>
+                {% endif %}
+            </h2>
+            <p>
+                <a href="{% url "create_task" %}">Create a new task</a>
+            </p>
+        </div>
     </main>
-  </body>
-</html>
+{% endblock content %}

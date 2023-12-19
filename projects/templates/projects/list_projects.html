@@ -1,36 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
+{% extends "base.html" %}
+
+{% block content %}
     <main>
-      <div>
-        <h1>My Projects</h1>
-        <a href="{% url "create_project" %}">Create a new project</a>
-        {% if not projects %}
-        <p>You are not assigned to any projects</p>
-        {% else %}
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Number of tasks</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for project in projects %}
-            <tr>
-              <td><a href="{% url "show_project" project.id %}">{{project}}</a></td>
-              <td>{{project.tasks.all|length}}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-        {% endif %}
-      </div>
+        <div>
+            <h1>My Projects</h1>
+            <a href="{% url "create_project" %}">Create a new project</a>
+            {% if not projects %}
+                <p>You are not assigned to any projects</p>
+            {% else %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Number of tasks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for project in projects %}
+                            <tr>
+                                <td>
+                                    <a href="{% url "show_project" project.id %}">{{ project }}</a>
+                                </td>
+                                <td>{{ project.tasks.all|length }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
     </main>
-  </body>
-</html>
+{% endblock content %}
